@@ -9,6 +9,9 @@ class Stock:
         self.end_date = end_date
         self.day = 3
         self.result = []
+        self.fw = open("./result.csv", 'w')
+        self.fw.write('rate,date,code')
+        self.fw.write("\n")
     def getStStockCode(self):
         df = self.pro.namechange(fields='ts_code,name,start_date,end_date,change_reason', start_date='20180401', end_date='20190401')
         stock = []
@@ -34,7 +37,7 @@ class Stock:
         tmp = 0
         for key, value in enumerate(list):
             tmp += value[9]
-            if key >= self.day:
+            if key >= self.day - 1:
                 avg_vol = tmp / self.day
                 if key == len(list) - 1:
                     break
@@ -44,4 +47,7 @@ class Stock:
                         t_close = value[5]
                         t2_close = list[key+1][5]
                         amount = (t2_close / t_close) - 1
-                        print 'rate:' +str(amount) + '---date:' + list[key+1][1] + '---code:' +list[key+1][0]
+                        # print 'rate:' + str(amount) + '---date:' + list[key+1][1] + '---code:' +list[key+1][0]
+                        self.fw.write(str(amount) + ',' + list[key+1][1] + ',' +list[key+1][0])
+                        self.fw.write("\n")
+                tmp -= list[key - (self.day-1)][9]
