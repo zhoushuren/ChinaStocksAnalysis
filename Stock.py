@@ -48,6 +48,6 @@ class Stock:
                         t2_close = list[key+1][5]
                         amount = (t2_close / t_close) - 1
                         # print 'rate:' + str(amount) + '---date:' + list[key+1][1] + '---code:' +list[key+1][0]
-                        self.fw.write(str(amount) + ',' + list[key+1][1] + ',' +list[key+1][0])
+                        self.fw.write(str(amount) + ',' + list[key+1][1] + ',' + list[key+1][0])
                         self.fw.write("\n")
                 tmp -= list[key - (self.day-1)][9]
